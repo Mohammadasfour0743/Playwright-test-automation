@@ -11,7 +11,7 @@ test.describe('Shopping & Checkout Flows', () => {
     // Wait for network response to settle (basic wait for product name text)
     await page.waitForTimeout(1000); // Allow time for API to return results
     const products = await homePage.getAllProductNames();
-    
+
     expect(products.length).toBeGreaterThan(0);
     for (const name of products) {
       expect(name.toLowerCase()).toContain('pliers');
@@ -38,7 +38,7 @@ test.describe('Shopping & Checkout Flows', () => {
     await page.waitForTimeout(1500); // Allow sorting to complete
 
     const prices = await homePage.getAllProductPrices();
-    
+
     // Verify prices are in descending order
     let isSorted = true;
     for (let i = 0; i < prices.length - 1; i++) {
@@ -55,7 +55,7 @@ test.describe('Shopping & Checkout Flows', () => {
 
     // Select a product
     await homePage.clickProductByName('Combination Pliers');
-    
+
     // Set quantity to 2 and add to cart
     await productPage.setQuantity(2);
     await productPage.addToCart();
@@ -73,15 +73,17 @@ test.describe('Shopping & Checkout Flows', () => {
     await cartPage.proceedToCheckout();
 
     // Step 2: Login step
-    const email = process.env.TEST_EMAIL || 'customer@practicesoftwaretesting.com';
-    const password = process.env.TEST_PASSWORD || 'welcome01';
+    const email = 'customer@practicesoftwaretesting.com';
+    const password = 'welcome01';
     await loginPage.login(email, password);
 
     // Step 3: Address step
     await cartPage.proceedToAddress();
-    
+
     // Verify we reached the address step and the form is present
     await expect(page.getByTestId('country')).toBeVisible();
     await expect(cartPage.proceed3Button).toBeVisible();
+
+    //continue checkout test
   });
 });

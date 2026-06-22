@@ -8,7 +8,6 @@ This repository was designed to showcase industry best practices in test automat
 
 ## 🎯 General Idea & Architecture
 
-The primary goal of this framework is to provide a clean separation of concerns between test specifications and page-specific details (locators, actions, helpers). 
 
 ### Key Highlights
 *   **Page Object Model (POM):** Every page has a dedicated class encapsulating its UI elements and user actions (e.g., [login.page.ts](file:///c:/Users/Mohammad%20Asfour/Desktop/Playwright-test-automation/src/pages/login.page.ts)).
@@ -92,6 +91,7 @@ A few convenient npm scripts are defined in [package.json](file:///c:/Users/Moha
 
 ## 🔮 Future Work & Enhancements
 
+*   **Expand tests to include more test cases:** Automate some extra test cases according to the test plan.
 *   **API Response Validation & Hybrid Testing:** Integrate API requests (`request` utility in Playwright) to validate backend responses and state directly. 
 *   **API-Driven State Setup:** Instead of relying entirely on UI interactions to set up pre-requisites (like registering a user or adding items to a cart), use API calls to prepare test states, reducing execution time and UI fragility.
 *   **CI/CD Pipeline Integration:** Configure GitHub Actions to run the test suite on every pull request and generate automated test report artifacts.
