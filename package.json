@@ -6,7 +6,9 @@
   "scripts": {
     "test:a": "npx playwright test --headed tests/",
     "test:b": "npx playwright test tests/",
-    "test:auth": "npx playwright test auth.spec.ts"
+    "test:auth": "npx playwright test auth.spec.ts",
+    "test:contact": "npx playwright test contact.spec.ts",
+    "test:shopping": "npx playwright test shopping.spec.ts"
   },
   "keywords": [],
   "author": "",
