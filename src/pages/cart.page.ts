@@ -7,7 +7,9 @@ export class CartPage extends BasePage {
   readonly proceed3Button: Locator;
   readonly paymentMethodDropdown: Locator;
   readonly finishButton: Locator;
+  readonly confirmButton: Locator;
   readonly successMessage: Locator;
+  readonly orderConfirmation: Locator;
 
   readonly cartItems: Locator;
   readonly productNames: Locator;
@@ -20,8 +22,9 @@ export class CartPage extends BasePage {
     this.proceed3Button = page.getByTestId('proceed-3');
     this.paymentMethodDropdown = page.getByTestId('payment-method');
     this.finishButton = page.getByTestId('finish');
+    this.confirmButton = page.getByRole('button', { name: 'Confirm' });
     this.successMessage = page.locator('.alert-success');
-
+    this.orderConfirmation = page.locator('#order-confirmation');
     this.cartItems = page.locator('tbody tr');
     this.productNames = page.locator('.product-title');
     this.totalPrice = page.getByTestId('cart-total');
@@ -54,6 +57,10 @@ export class CartPage extends BasePage {
 
   async finishCheckout() {
     await this.finishButton.click();
+  }
+
+  async confirmOrder() {
+    await this.confirmButton.click();
   }
 
   async getCartItemsCount(): Promise<number> {

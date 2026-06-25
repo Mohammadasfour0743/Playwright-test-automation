@@ -50,7 +50,7 @@ test.describe('Shopping & Checkout Flows', () => {
     expect(isSorted).toBeTruthy();
   });
 
-  test('should add product to cart and complete checkout flow', async ({ page, homePage, productPage, cartPage, loginPage }) => {
+  test.only('should add product to cart and complete checkout flow', async ({ page, homePage, productPage, cartPage, loginPage }) => {
     await page.goto('/');
 
     // Select a product
@@ -84,6 +84,27 @@ test.describe('Shopping & Checkout Flows', () => {
     await expect(page.getByTestId('country')).toBeVisible();
     await expect(cartPage.proceed3Button).toBeVisible();
 
-    //continue checkout test
+    // Step 4: filling address
+    await cartPage.fillAddress();
+    await cartPage.proceedToPayment();
+
+    // Step 5: select payment method
+    await cartPage.selectPaymentMethod('Cash on Delivery');
+    await cartPage.finishCheckout();
+    await expect(cartPage.successMessage).toBeVisible();
+    await expect(cartPage.successMessage).toHaveText("Payment was successful");
+    await page.waitForTimeout(5000);
+
+
+    // Step 6: verify order placed and get invoice nb
+    await cartPage.finishCheckout();
+    await page.waitForTimeout(10000);
+    await expect(cartPage.orderConfirmation).toBeVisible();
+    await expect(cartPage.orderConfirmation).toHaveText(/Thanks for your order! Your invoice number is INV-\d+\./);
+    const confirmationText = await cartPage.orderConfirmation.textContent();
+    const invoiceNumber = confirmationText?.match(/INV-\d+/)?.[0];
+    console.log('Invoice Number:', invoiceNumber);
+    expect(invoiceNumber).toBeTruthy();
+
   });
 });
